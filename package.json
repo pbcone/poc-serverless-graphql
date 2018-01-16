@@ -1,0 +1,20 @@
+{
+  "name": "poc-serverless-graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Nathan Pointer <npointer@cbtnuggets.com>",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.182.0",
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
+    "graphiql": "^0.11.11",
+    "graphql": "^0.12.3",
+    "serverless-http": "^1.5.2",
+    "serverless-offline": "^3.16.0"
+  },
+  "scripts":{
+    "start": "sls offline start"
+  }
+  
+}
