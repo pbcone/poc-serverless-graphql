@@ -10,3 +10,4 @@ routes:
 * /health -> status 200
 * /graphiql -> standard graphql interface
 
+based on https://serverless.com/blog/make-serverless-graphql-api-using-lambda-dynamodb/
