@@ -1,6 +1,6 @@
 # poc-serverless-graphql
 
-requires [serverless cli](https://serverless.com/)
+requires [serverless cli](https://serverless.com/) to be installed
 
 yarn start will make a local version of the lambda available on port 3000 and will watch your directory for changes.
 
