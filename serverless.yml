@@ -1,5 +1,5 @@
 # serverless.yml
-service: graphql-api
+service: poc-serverless-graphql
 
 plugins:
   - serverless-offline
@@ -16,7 +16,7 @@ provider:
   runtime: nodejs6.10
   stage: dev
   environment:
-    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
+    DYNAMODB_TABLE: ${self:service}-count-${self:provider.stage}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -26,14 +26,14 @@ provider:
 
 resources:
   Resources:
-    NicknamesTable:
+    countTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
-          - AttributeName: firstName
+          - AttributeName: userId
             AttributeType: S
         KeySchema:
-          - AttributeName: firstName
+          - AttributeName: userId
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1

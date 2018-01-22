@@ -1,40 +1,50 @@
 const AWS = require('aws-sdk');
-const promisify = require('./promisify');
-
 const dynamoDb = new AWS.DynamoDB.DocumentClient({ region: 'us-east-1' });
 
-const getGreeting = firstName =>
-  promisify(callback =>
-    dynamoDb.get(
-      {
-        TableName: process.env.DYNAMODB_TABLE,
-        Key: { firstName }
-      },
-      callback
-    )
-  )
+const getCount = userId =>
+  dynamoDb
+    .get({
+      TableName: process.env.DYNAMODB_TABLE,
+      Key: { userId }
+    })
+    .promise()
     .then(result => {
       if (!result.Item) {
-        return firstName;
+        return 0;
       }
-      return result.Item.nickname;
-    })
-    .then(name => `Hello, ${name}.`);
+      return result.Item.age;
+    });
 
-// add method for updates
-const changeNickname = (firstName, nickname) =>
-  promisify(callback =>
-    dynamoDb.update(
-      {
+const incrementCount = (userId, n) =>
+  getCount(userId).then(currentCount => {
+    const nextCount = currentCount + n;
+    return dynamoDb
+      .update({
         TableName: process.env.DYNAMODB_TABLE,
-        Key: { firstName },
-        UpdateExpression: 'SET nickname = :nickname',
+        Key: { userId },
+        UpdateExpression: 'SET age = :age',
         ExpressionAttributeValues: {
-          ':nickname': nickname
+          ':age': nextCount
         }
-      },
-      callback
-    )
-  ).then(() => nickname);
+      })
+      .promise()
+      .then(_ => nextCount);
+  });
 
-module.exports = { getGreeting, changeNickname };
+const decrementCount = (userId, n) =>
+  getCount(userId).then(currentCount => {
+    const nextCount = currentCount - n;
+    return dynamoDb
+      .update({
+        TableName: process.env.DYNAMODB_TABLE,
+        Key: { userId },
+        UpdateExpression: 'SET age = :age',
+        ExpressionAttributeValues: {
+          ':age': nextCount
+        }
+      })
+      .promise()
+      .then(_ => nextCount);
+  });
+
+module.exports = { getCount, incrementCount, decrementCount };
