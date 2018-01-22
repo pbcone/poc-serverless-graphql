@@ -12,6 +12,7 @@ routes:
 * / -> standard graphql / graphiql interface
 
 example query: `query{ count(user:"asdf") }`
+
 example mutation: `mutation{ incrementCount(user:"asdf", n:1) }`
 
 both examples can be ran in the graphiql interface available on the root route.
