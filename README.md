@@ -11,6 +11,13 @@ routes:
 * /health -> status 200
 * / -> standard graphql / graphiql interface
 
-information about what queries and mutations are available can be found in the graphiql interface inside the docs tab
+example query:
+
+`query{ count(user:"asdf") }`
+
+example mutation:
+`mutation{ incrementCount(user:"asdf", n:1) }`
+
+more information about what queries and mutations are available can be found in the graphiql interface inside the docs tab
 
 based on https://serverless.com/blog/make-serverless-graphql-api-using-lambda-dynamodb/
