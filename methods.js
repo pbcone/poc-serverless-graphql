@@ -1,10 +1,11 @@
-const AWS = require('aws-sdk');
-const dynamoDb = new AWS.DynamoDB.DocumentClient({ region: 'us-east-1' });
+var dynamodb = require('serverless-dynamodb-client').doc;
+
+const COUNT_TABLE = process.env.COUNT_TABLE;
 
 const getCount = userId =>
-  dynamoDb
+  dynamodb
     .get({
-      TableName: process.env.DYNAMODB_TABLE,
+      TableName: COUNT_TABLE,
       Key: { userId }
     })
     .promise()
@@ -18,9 +19,9 @@ const getCount = userId =>
 const incrementCount = (userId, n) =>
   getCount(userId).then(currentCount => {
     const nextCount = currentCount + n;
-    return dynamoDb
+    return dynamodb
       .update({
-        TableName: process.env.DYNAMODB_TABLE,
+        TableName: COUNT_TABLE,
         Key: { userId },
         UpdateExpression: 'SET age = :age',
         ExpressionAttributeValues: {
@@ -34,9 +35,9 @@ const incrementCount = (userId, n) =>
 const decrementCount = (userId, n) =>
   getCount(userId).then(currentCount => {
     const nextCount = currentCount - n;
-    return dynamoDb
+    return dynamodb
       .update({
-        TableName: process.env.DYNAMODB_TABLE,
+        TableName: COUNT_TABLE,
         Key: { userId },
         UpdateExpression: 'SET age = :age',
         ExpressionAttributeValues: {

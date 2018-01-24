@@ -11,13 +11,14 @@ const typeDefs = `
     decrementCount(user:ID!, n:Int) : Int 
   }
 `;
+
 const resolvers = {
   Query: {
     count: (parent, { user }) => getCount(user)
   },
   Mutation: {
-    incrementCount: (parent, { user, n }) => incrementCount(user, n),
-    decrementCount: (parent, { user, n }) => decrementCount(user, n)
+    incrementCount: (parent, { user, n = 1 }) => incrementCount(user, n),
+    decrementCount: (parent, { user, n = 1 }) => decrementCount(user, n)
   }
 };
 

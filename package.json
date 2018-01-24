@@ -11,10 +11,15 @@
     "graphiql": "^0.11.11",
     "graphql": "^0.12.3",
     "graphql-tools": "^2.18.0",
+    "serverless-dynamodb-client": "^0.0.2",
+    "serverless-dynamodb-local": "^0.2.27",
     "serverless-http": "^1.5.2",
     "serverless-offline": "^3.16.0"
   },
   "scripts": {
-    "start": "sls offline start"
+    "start": "sls offline start",
+    "profile": "echo $AWS_PROFILE",
+    "deploy": "sls deploy",
+    "db": "sudo lsof -i tcp:8000 "
   }
 }
