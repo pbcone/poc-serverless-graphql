@@ -1,0 +1,24 @@
+{
+  "name": "lamba-training-dashboard",
+  "version": "1.0.0",
+  "description": "A script file to assist with various details of the training dashboard lambda",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbtnuggets/lamba-training-dashboard.git"
+  },
+  "author": "Matti Cone (mcone@cbtnuggets.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cbtnuggets/lamba-training-dashboard/issues"
+  },
+  "homepage": "https://github.com/cbtnuggets/lamba-training-dashboard#readme",
+  "dependencies": {
+    "apollo-fetch": "^0.7.0",
+    "csvtojson": "^1.1.9",
+    "jest": "^22.1.4"
+  }
+}

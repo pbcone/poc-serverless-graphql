@@ -1,6 +1,7 @@
 var dynamodb = require('serverless-dynamodb-client').doc;
 
 const COUNT_TABLE = process.env.COUNT_TABLE;
+const LEDGER_TABLE = process.env.LEDGER_TABLE;
 
 const getCount = userId =>
   dynamodb
@@ -48,4 +49,22 @@ const decrementCount = (userId, n) =>
       .then(_ => nextCount);
   });
 
-module.exports = { getCount, incrementCount, decrementCount };
+
+const createAction = action =>
+  dynamodb.put({
+      TableName: LEDGER_TABLE,
+      Item:{
+        "actionId": action.actionId,
+        "timeStamp": action.timeStamp,
+        "minutesTrained": action.minutesTrained,
+        "topic": action.topic,
+        "email": action.email,
+        "previoupreviousRecordingTimeStampsTimeStamp": action.previousRecordingTimeStamp
+      }
+    })
+    .promise()
+    .then(_=> 1);
+
+
+
+module.exports = { getCount, incrementCount, decrementCount, createAction };
