@@ -10,6 +10,11 @@ app.get('/health', function(req, res) {
     res.send(200);
 });
 
+app.get('/mattiTest', function(req, res) {
+    console.log('Executed my test!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    res.send(200);
+});
+
 app.all(
     '/',
     graphqlHTTP({
